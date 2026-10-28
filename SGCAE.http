@@ -1,0 +1,66 @@
+@host = http://localhost:5124
+# Los identificadores GUID de las respuestas se deben copiar en las variables siguientes.
+@empleadoId = 00000000-0000-0000-0000-000000000000
+@credencialId = 00000000-0000-0000-0000-000000000000
+@puntoId = 00000000-0000-0000-0000-000000000000
+
+### 1. Registrar empleado (RF-01)
+POST {{host}}/api/empleados
+Content-Type: application/json
+
+{
+  "documento": "1099123456",
+  "nombres": "Ana María",
+  "apellidos": "Pérez",
+  "correo": "ana.perez@empresa.com",
+  "cargo": "Operaria",
+  "areaOrganizacional": "Bodega"
+}
+
+### 2. Consultar empleado (pegar empleadoId devuelto)
+GET {{host}}/api/empleados/{{empleadoId}}
+
+### 3. Listar empleados
+GET {{host}}/api/empleados?pagina=1&tamanoPagina=10
+
+### 4. Registrar punto físico (RF-06)
+POST {{host}}/api/puntos-acceso
+Content-Type: application/json
+
+{"codigo":"RECEPCION","nombre":"Recepción principal","ubicacion":"Entrada","habilitado":true}
+
+### 5. Listar puntos
+GET {{host}}/api/puntos-acceso
+
+### 6. Asignar credencial (RF-02; pegar empleadoId)
+POST {{host}}/api/credenciales
+Content-Type: application/json
+
+{"empleadoId":"{{empleadoId}}","codigo":"TARJETA-0001"}
+
+### 7. Registrar entrada (RF-03)
+POST {{host}}/api/accesos
+Content-Type: application/json
+
+{"codigoCredencial":"TARJETA-0001","codigoPuntoAcceso":"RECEPCION","tipo":"Entrada"}
+
+### 8. Registrar salida
+POST {{host}}/api/accesos
+Content-Type: application/json
+
+{"codigoCredencial":"TARJETA-0001","codigoPuntoAcceso":"RECEPCION","tipo":"Salida"}
+
+### 9. Consultar historial y paginación (RF-04)
+GET {{host}}/api/accesos/historial?pagina=1&tamanoPagina=5
+
+### 10. Bloquear una credencial (pegar credencialId)
+PATCH {{host}}/api/credenciales/{{credencialId}}/bloquear
+
+### 11. Desactivar empleado
+PATCH {{host}}/api/empleados/{{empleadoId}}/desactivar
+
+### 12. Deshabilitar punto
+PATCH {{host}}/api/puntos-acceso/{{puntoId}}/estado
+Content-Type: application/json
+
+{"habilitado":false}

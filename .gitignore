@@ -1,0 +1,16 @@
+## Visual Studio / .NET
+.vs/
+**/bin/
+**/obj/
+TestResults/
+*.user
+*.suo
+*.userosscache
+*.sln.docstates
+# No subir contraseñas ni cadenas reales
+**/appsettings.Local.json
+**/appsettings.Production.json
+.env
+*.bak
+*.mdf
+*.ldf

@@ -1,0 +1,20 @@
+name: Compilar y probar SGCAE
+on:
+  push:
+  pull_request:
+jobs:
+  test:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Descargar codigo
+        uses: actions/checkout@v4
+      - name: Configurar .NET 10
+        uses: actions/setup-dotnet@v4
+        with:
+          dotnet-version: '10.0.x'
+      - name: Restaurar paquetes
+        run: dotnet restore SGCAE.sln
+      - name: Compilar
+        run: dotnet build SGCAE.sln --no-restore --configuration Release
+      - name: Ejecutar pruebas de dominio y aplicacion
+        run: dotnet test SGCAE.sln --no-build --configuration Release
