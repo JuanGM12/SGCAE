@@ -1,5 +1,7 @@
 # SGCAE — Sistema de Gestión y Control de Acceso de Empleados
 
+Desarrollador: Juan Diego Patiño Osorio
+
 La aplicación expone una API REST para registrar empleados, asignar/bloquear/revocar credenciales, administrar puntos de acceso y registrar entradas, salidas y accesos rechazados. La documentación y prueba interactiva se hace con **Swagger**.
 
 
